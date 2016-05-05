@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ asset('components/bootstrap/dist/css/bootstrap.min.css') }}" />
 </head>
 <body>
-    <h1>{% block title %}{% endblock %}</h1>
+    <h1>{% block titlePage %}{% endblock %}</h1>
     <div class="container">{% block content %} {% endblock %}</div>
+    <script src="{{ asset('components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 </body>
 </html>
