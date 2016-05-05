@@ -19,6 +19,9 @@ $app->register(new ServiceControllerServiceProvider());
 $app->register(new DoctrineServiceProvider);
 $app->register(new DoctrineOrmServiceProvider);
 
+$app['session.storage.handler'] = function ($app) {
+    return new NativeRedisSessionHandler($app['session.storage.save_path']);
+};
 
 $app['twig'] = $app->extend('twig', function (\Twig_Environment $twig) use ($app) {
     $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) {
@@ -26,10 +29,6 @@ $app['twig'] = $app->extend('twig', function (\Twig_Environment $twig) use ($app
     }));
     return $twig;
 });
-
-$app['session.storage.handler'] = function ($app) {
-    return new NativeRedisSessionHandler($app['session.storage.save_path']);
-};
 
 //$app['twig'] =
 //    function($app) {

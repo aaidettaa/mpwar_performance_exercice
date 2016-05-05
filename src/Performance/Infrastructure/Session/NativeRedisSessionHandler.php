@@ -10,17 +10,13 @@ class NativeRedisSessionHandler extends NativeSessionHandler
      *
      * @param string $savePath Path of redis server.
      */
-    public function __construct($savePath = "")
+    public function __construct($savePath =  null)
     {
         if (!extension_loaded('redis')) {
             throw new \RuntimeException('PHP does not have "redis" session module registered');
         }
 
-        if ("" === $savePath) {
-            $savePath = ini_get('session.save_path');
-        }
-
-        if ("" === $savePath) {
+        if (null === $savePath) {
             $savePath = "tcp://localhost:6379"; // guess path
         }
 
