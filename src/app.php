@@ -18,4 +18,25 @@ $app->register(new ServiceControllerServiceProvider());
 $app->register(new DoctrineServiceProvider);
 $app->register(new DoctrineOrmServiceProvider);
 
+
+$app['twig'] = $app->extend('twig', function (\Twig_Environment $twig) use ($app) {
+    $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) {
+        return sprintf('/mpwar_performance_exercise/web/assets/%s', ltrim($asset, '/'));
+    }));
+    return $twig;
+});
+
+//$app['twig'] =
+//    function($app) {
+//        $app->extend('twig', function($twig, $app) {
+//            $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) {
+//                // implement whatever logic you need to determine the asset path
+//
+//                return sprintf('/var/www/mpwar_performance_exercise/web/assets/%s', ltrim($asset, '/'));
+//            }));
+//
+//            return $twig;
+//        });
+//    };
+
 return $app;

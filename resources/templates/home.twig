@@ -2,6 +2,8 @@
 
 {% block title %}Blog{% endblock %}
 
+{% block titlePage %}Blog{% endblock %}
+
 {% block content %}
 	{% for article in articles %}
 		<h1><a href="{{ path('article', {article_id: article.id}) }}">{{ article.title | title }}</a></h1>
