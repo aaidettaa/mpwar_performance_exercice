@@ -1,5 +1,6 @@
 <?php
 
+use Performance\Infrastructure\Session\NativeRedisSessionHandler;
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
@@ -25,6 +26,10 @@ $app['twig'] = $app->extend('twig', function (\Twig_Environment $twig) use ($app
     }));
     return $twig;
 });
+
+$app['session.storage.handler'] = function ($app) {
+    return new NativeRedisSessionHandler($app['session.storage.save_path']);
+};
 
 //$app['twig'] =
 //    function($app) {
