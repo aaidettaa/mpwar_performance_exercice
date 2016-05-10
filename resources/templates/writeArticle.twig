@@ -1,8 +1,10 @@
-<!DOCTYPE html>
-<meta charset="UTF-8">
-<body>
-    <h1>Write Article</h1>
+{% extends "masterLayout.twig" %}
 
+{% block title %}Write Article{% endblock %}
+
+{% block titlePage %}Write Article{% endblock %}
+
+{% block content %}
     <form action="{{ path('writeArticle') }}" method="POST">
         Title <br />
         <input type="text" name="title" id="title" /> <br />
@@ -11,4 +13,4 @@
         <br />
         <input type="submit" value="Save" />
     </form>
-</body>
+{% endblock %}

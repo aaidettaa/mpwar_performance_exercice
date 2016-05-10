@@ -1,8 +1,11 @@
-<!DOCTYPE html>
-<meta charset="UTF-8">
-<body>
-    <h1>Register</h1>
+{% extends "masterLayout.twig" %}
 
+{% block title %}Register{% endblock %}
+
+{% block titlePage %}Register{% endblock %}
+
+
+{% block content %}
     <form action="{{ path('register') }}" method="POST">
         <fieldset>
             <label for="username">Username</label>
@@ -16,4 +19,4 @@
             <input type="submit" value="Login" />
         </fieldset>
     </form>
-</body>
+{% endblock %}
