@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Performance\Domain\UseCase\SignUp;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class RegisterController
@@ -25,15 +26,25 @@ class RegisterController
      */
     private $useCase;
 
-    public function __construct(\Twig_Environment $templating, UrlGeneratorInterface $url_generator, SignUp $useCase) {
+    /**
+     * @var SessionInterface
+     */
+    private $session;
+
+    public function __construct(\Twig_Environment $templating, UrlGeneratorInterface $url_generator, SignUp $useCase, SessionInterface $session) {
         $this->template = $templating;
         $this->url_generator = $url_generator;
         $this->useCase = $useCase;
+        $this->session = $session;
     }
 
     public function get()
     {
-        return new Response($this->template->render('register.twig'));
+        $logged = true;
+        if (!$this->session->get('author_id')) {
+            $logged = false;
+        }
+        return new Response($this->template->render('register.twig', ['logged' => $logged]));
     }
 
     public function post(Request $request)

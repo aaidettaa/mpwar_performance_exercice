@@ -52,7 +52,11 @@ class LoginController
 
     public function get()
     {
-        return new Response($this->template->render('login.twig'));
+        $logged = true;
+        if (!$this->session->get('author_id')) {
+            $logged = false;
+        }
+        return new Response($this->template->render('login.twig', ['logged' => $logged]));
     }
 
     public function logout()

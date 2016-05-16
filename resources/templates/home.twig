@@ -5,6 +5,7 @@
 {% block titlePage %}Blog{% endblock %}
 
 {% block content %}
+	<h2>Global Ranking</h2>
 	{% for article in articles %}
 		<h1><a href="{{ path('article', {article_id: article.id}) }}">{{ article.title | title }}</a></h1>
 		<h3>by {{ article.author.username }}, on {{ article.date | date("d/m/Y H:i") }}</h3>
@@ -19,5 +20,10 @@
 	{% else %}
 		<h1>There are no articles to show</h1>
 	{% endfor %}
+
+	{% if logged %}
+		<h2>User Ranking</h2>
+	{% endif %}
+
 {% endblock %}
 

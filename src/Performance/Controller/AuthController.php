@@ -5,6 +5,7 @@ namespace Performance\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Performance\Domain\UseCase\Login;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class AuthController
@@ -19,9 +20,15 @@ class AuthController
      */
     private $useCase;
 
-    public function __construct(UrlGeneratorInterface $url_generator, Login $useCase) {
+    /**
+     * @var SessionInterface
+     */
+    private $session;
+
+    public function __construct(UrlGeneratorInterface $url_generator, Login $useCase, SessionInterface $session) {
         $this->url_generator = $url_generator;
         $this->useCase = $useCase;
+        $this->session = $session;
     }
 
     public function post(Request $request)
