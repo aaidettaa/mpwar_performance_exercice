@@ -1,5 +1,6 @@
 <?php
 
+use Performance\Infrastructure\Session\NativeRedisSessionHandler;
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
@@ -18,6 +19,9 @@ $app->register(new ServiceControllerServiceProvider());
 $app->register(new DoctrineServiceProvider);
 $app->register(new DoctrineOrmServiceProvider);
 
+$app['session.storage.handler'] = function ($app) {
+    return new NativeRedisSessionHandler($app['session.storage.save_path']);
+};
 
 $app['twig'] = $app->extend('twig', function (\Twig_Environment $twig) use ($app) {
     $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) {
