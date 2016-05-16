@@ -43,6 +43,11 @@ class ArticleController
             throw new HttpException(404, "Article $article_id does not exist.");
         }
 
-        return new Response($this->template->render('article.twig', ['article' => $article, 'logged' => $logged]));
+        $page = 'article';
+        return new Response($this->template->render('article.twig', [
+            'article' => $article,
+            'logged' => $logged,
+            'page' => $page
+        ]));
     }
 }

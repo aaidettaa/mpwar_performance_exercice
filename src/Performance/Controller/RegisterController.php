@@ -44,7 +44,11 @@ class RegisterController
         if (!$this->session->get('author_id')) {
             $logged = false;
         }
-        return new Response($this->template->render('register.twig', ['logged' => $logged]));
+        $page = 'register';
+        return new Response($this->template->render('register.twig', [
+            'logged' => $logged,
+            'page' => $page
+        ]));
     }
 
     public function post(Request $request)

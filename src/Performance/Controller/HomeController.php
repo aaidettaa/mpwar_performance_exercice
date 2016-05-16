@@ -31,6 +31,11 @@ class HomeController
             $logged = false;
         }
         $articles = $this->useCase->execute();
-        return new Response($this->template->render('home.twig', ['articles' => $articles, 'logged' => $logged]));
+        $page = 'home';
+        return new Response($this->template->render('home.twig', [
+            'articles' => $articles,
+            'logged' => $logged,
+            'page' => $page
+        ]));
     }
 }

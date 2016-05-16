@@ -45,8 +45,11 @@ class WriteArticleController
             $logged = false;
             return new RedirectResponse($this->url_generator->generate('login'));
         }
-
-        return new Response($this->template->render('writeArticle.twig', ['logged' => $logged]));
+        $page = 'writeArticle';
+        return new Response($this->template->render('writeArticle.twig', [
+            'logged' => $logged,
+            'page' => $page
+        ]));
     }
 
     public function post(Request $request)

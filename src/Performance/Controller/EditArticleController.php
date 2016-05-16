@@ -54,7 +54,12 @@ class EditArticleController
         }
 
         $article = $this->readArticle->execute($article_id);
-        return new Response($this->template->render('editArticle.twig', ['article' => $article, 'logged' => $logged]));
+        $page = 'editArticle';
+        return new Response($this->template->render('editArticle.twig', [
+            'article' => $article,
+            'logged' => $logged,
+            'page' => $page
+        ]));
     }
 
     public function post(Request $request)
