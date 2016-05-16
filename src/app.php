@@ -1,5 +1,6 @@
 <?php
 
+use Performance\Domain\ServiceProvider\RedisServiceProvider;
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
@@ -25,5 +26,7 @@ $app['twig'] = $app->extend('twig', function (\Twig_Environment $twig) use ($app
     }));
     return $twig;
 });
+
+$app->register(new RedisServiceProvider());
 
 return $app;
