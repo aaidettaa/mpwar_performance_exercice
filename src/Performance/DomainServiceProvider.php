@@ -26,7 +26,7 @@ class DomainServiceProvider implements ServiceProviderInterface
         };
 
         $app['useCases.readArticle'] = function () use ($app) {
-            return new \Performance\Domain\UseCase\ReadArticle($app['orm.em']->getRepository('Performance\Domain\Article'));
+            return new \Performance\Domain\UseCase\ReadArticle($app['orm.em']->getRepository('Performance\Domain\Article'), $app['dispatcher']);
         };
 
         $app['useCases.listArticles'] = function () use ($app) {
