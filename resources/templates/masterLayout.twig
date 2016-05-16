@@ -7,10 +7,71 @@
     <title>{% block title %}{% endblock %}</title>
 
     <link rel="stylesheet" href="{{ asset('components/bootstrap/dist/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/blog.css') }}" />
 </head>
 <body>
-    <h1>{% block titlePage %}{% endblock %}</h1>
-    <div class="container">{% block content %} {% endblock %}</div>
+    <nav class="blog-masthead">
+        <div class="container">
+            <nav class="blog-nav">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ path('home') }}">BLOG</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li {% if page == 'home' %}class="active"{% endif %}>
+                            <a class="blog-nav-item" href="{{ path('home') }}">Home</a>
+                        </li>
+                        {% if logged %}
+                            <li {% if page == 'article' %}class="active"{% endif %}>
+                                <a class="blog-nav-item" href="{{ path('articles') }}">articles</a>
+                            </li>
+                            <li {% if page == 'writeArticle' %}class="active"{% endif %}>
+                                <a class="blog-nav-item" href="{{ path('writeArticle') }}">writeArticle</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if logged %}
+                            <li>
+                                <a class="blog-nav-item" href="{{ path('logout') }}">logout</a>
+                            </li>
+                        {% else %}
+                            <li {% if page == 'login' %}class="active"{% endif %}>
+                                <a class="blog-nav-item" href="{{ path('login') }}">login</a>
+                            </li>
+                            <li {% if page == 'register' %}class="active"{% endif %}>
+                                <a class="blog-nav-item" href="{{ path('register') }}">register</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="blog-header">
+            <h1 class="blog-title">{% block titlePage %}{% endblock %}</h1>
+        </div>
+        <div class="row">
+            {% block content %} {% endblock %}
+        </div>
+    </div>
+
+    <footer class="blog-footer">
+        <p>Blog built by Aida, Matheus and Xavi</p>
+        <p>
+            <a href="#">Back to top</a>
+        </p>
+    </footer>
+
+    <script src="{{ asset('components/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 </body>
 </html>

@@ -34,7 +34,7 @@ class DomainServiceProvider implements ServiceProviderInterface
         };
 
         $app['controllers.readArticle'] = function () use ($app) {
-            return new \Performance\Controller\ArticleController($app['twig'], $app['useCases.readArticle']);
+            return new \Performance\Controller\ArticleController($app['twig'], $app['useCases.readArticle'], $app['session']);
         };
 
         $app['controllers.writeArticle'] = function () use ($app) {
@@ -50,11 +50,11 @@ class DomainServiceProvider implements ServiceProviderInterface
         };
 
         $app['controllers.signUp'] = function () use ($app) {
-            return new \Performance\Controller\RegisterController($app['twig'], $app['url_generator'], $app['useCases.signUp']);
+            return new \Performance\Controller\RegisterController($app['twig'], $app['url_generator'], $app['useCases.signUp'], $app['session']);
         };
 
         $app['controllers.home'] = function () use ($app) {
-            return new \Performance\Controller\HomeController($app['twig'], $app['useCases.listArticles']);
+            return new \Performance\Controller\HomeController($app['twig'], $app['useCases.listArticles'], $app['session']);
         };
     }
 }

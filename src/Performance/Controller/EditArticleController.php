@@ -47,12 +47,19 @@ class EditArticleController
 
     public function get($article_id)
     {
+        $logged = true;
         if (!$this->session->get('author_id')) {
+            $logged = false;
             return new RedirectResponse($this->url_generator->generate('login'));
         }
 
         $article = $this->readArticle->execute($article_id);
-        return new Response($this->template->render('editArticle.twig', ['article' => $article]));
+        $page = 'editArticle';
+        return new Response($this->template->render('editArticle.twig', [
+            'article' => $article,
+            'logged' => $logged,
+            'page' => $page
+        ]));
     }
 
     public function post(Request $request)

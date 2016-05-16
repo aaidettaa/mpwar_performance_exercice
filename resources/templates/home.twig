@@ -5,19 +5,48 @@
 {% block titlePage %}Blog{% endblock %}
 
 {% block content %}
-	{% for article in articles %}
-		<h1><a href="{{ path('article', {article_id: article.id}) }}">{{ article.title | title }}</a></h1>
-		<h3>by {{ article.author.username }}, on {{ article.date | date("d/m/Y H:i") }}</h3>
-		<p>
-			{% if article.content | length > 100 %}
-				{{ article.content | slice(0,100) }}
-				<a href="{{ path('article', {article_id: article.id}) }}">more&hellip;</a>
-			{% else %}
-				{{ article.content }}
-			{% endif %}
-		</p>
-	{% else %}
-		<h1>There are no articles to show</h1>
-	{% endfor %}
+	<div class="col-sm-8 blog-main">
+		{% for article in articles %}
+			<div class="blog-post">
+				<h2 class="blog-post-title"><a href="{{ path('article', {article_id: article.id}) }}">{{ article.title | title }}</a></h2>
+				<p class="blog-post-meta">by {{ article.author.username }}, on {{ article.date | date("d/m/Y H:i") }}
+				{% if user_id == article.author.Id %}
+					<a href="{{ path('editArticle', {article_id: article.id}) }}">Editar</a>
+				{% endif %}
+				</p>
+				<p>
+					{% if article.content | length > 100 %}
+						{{ article.content | slice(0,100) }}
+						<a href="{{ path('article', {article_id: article.id}) }}">more&hellip;</a>
+					{% else %}
+						{{ article.content }}
+					{% endif %}
+				</p>
+			</div>
+		{% else %}
+			<h1>There are no articles to show</h1>
+		{% endfor %}
+	</div>
+	<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+		<div class="sidebar-module sidebar-module-inset">
+			<h4>Global Ranking</h4>
+			<ol class="list-unstyled">
+				<li><a href="#">GitHub</a></li>
+				<li><a href="#">Twitter</a></li>
+				<li><a href="#">Facebook</a></li>
+			</ol>
+		</div>
+		{% if logged %}
+			<div class="sidebar-module sidebar-module-inset">
+				<h4>User Ranking</h4>
+				<ol class="list-unstyled">
+					<li><a href="#">GitHub</a></li>
+					<li><a href="#">Twitter</a></li>
+					<li><a href="#">Facebook</a></li>
+				</ol>
+			</div>
+		{% endif %}
+	</div>
+
 {% endblock %}
 
