@@ -32,10 +32,12 @@ class HomeController
         }
         $articles = $this->useCase->execute();
         $page = 'home';
+        $user_id = $this->session->get('author_id');
         return new Response($this->template->render('home.twig', [
             'articles' => $articles,
             'logged' => $logged,
-            'page' => $page
+            'page' => $page,
+            'user_id' => $user_id
         ]));
     }
 }

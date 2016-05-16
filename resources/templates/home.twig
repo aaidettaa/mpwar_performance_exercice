@@ -9,7 +9,11 @@
 		{% for article in articles %}
 			<div class="blog-post">
 				<h2 class="blog-post-title"><a href="{{ path('article', {article_id: article.id}) }}">{{ article.title | title }}</a></h2>
-				<p class="blog-post-meta">by {{ article.author.username }}, on {{ article.date | date("d/m/Y H:i") }}</p>
+				<p class="blog-post-meta">by {{ article.author.username }}, on {{ article.date | date("d/m/Y H:i") }}
+				{% if user_id == article.author.Id %}
+					<a href="{{ path('editArticle', {article_id: article.id}) }}">Editar</a>
+				{% endif %}
+				</p>
 				<p>
 					{% if article.content | length > 100 %}
 						{{ article.content | slice(0,100) }}
