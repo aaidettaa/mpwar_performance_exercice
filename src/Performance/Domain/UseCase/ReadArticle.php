@@ -26,7 +26,7 @@ class ReadArticle
     public function execute($article_id) {
     	$the_article = $this->articleRepository->findOneById($article_id);
 
-        $article_readed_event = new ArticleEvent($this->redis);
+        $article_readed_event = new ArticleEvent($this->redis, $the_article);
         $this->event_dispatcher->dispatch(ArticleEvents::READED, $article_readed_event);
 
         return $the_article;

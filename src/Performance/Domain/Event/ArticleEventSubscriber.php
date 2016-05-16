@@ -4,6 +4,7 @@ namespace Performance\Domain\Event;
 
 
 use Performance\Domain\UseCase\AddVisitArticle;
+use Silex\Application;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ArticleEventSubscriber implements EventSubscriberInterface
@@ -15,6 +16,6 @@ class ArticleEventSubscriber implements EventSubscriberInterface
 
     public function onReadedArticle(ArticleEvent $event) {
         $theAddVisitArticleService = new AddVisitArticle($event->getRedis());
-        $theAddVisitArticleService->execute();
+        $theAddVisitArticleService->execute($event->getArticle());
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use Performance\Domain\Event\ArticleEventSubscriber;
 use Performance\Domain\ServiceProvider\RedisServiceProvider;
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
@@ -8,6 +9,7 @@ use Silex\Provider\ServiceControllerServiceProvider;
 use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\SessionServiceProvider;
+use Symfony\Component\HttpFoundation\Request;
 
 $app = new Application();
 
@@ -28,5 +30,9 @@ $app['twig'] = $app->extend('twig', function (\Twig_Environment $twig) use ($app
 });
 
 $app->register(new RedisServiceProvider());
+
+$app->before(function (Request $request) use ($app) {
+    $app['dispatcher']->addSubscriber(new ArticleEventSubscriber());
+});
 
 return $app;

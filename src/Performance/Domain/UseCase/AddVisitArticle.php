@@ -3,6 +3,7 @@
 namespace Performance\Domain\UseCase;
 
 
+use Performance\Domain\Article;
 use Redis;
 
 class AddVisitArticle {
@@ -13,10 +14,10 @@ class AddVisitArticle {
     private $redis;
 
     public function __construct($aRedis){
-        $redis = $aRedis;
+        $this->redis = $aRedis;
     }
 
-    public function execute(){
-        $this->redis->set('asd','asd');
+    public function execute(Article $an_article){
+        $this->redis->set('teeeest_'.$an_article->getId(),$an_article->getId());
     }
 }

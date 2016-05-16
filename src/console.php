@@ -9,7 +9,6 @@ use Symfony\Component\Console\Input\InputOption;
 
 $console = new Application('MPWAR CLI App', 'n/a');
 $console->getDefinition()->addOption(new InputOption('--env', '-e', InputOption::VALUE_REQUIRED, 'The Environment name.', 'dev'));
-$app['dispatcher']->addSubscriber(new ArticleEventSubscriber());
 $console->setDispatcher($app['dispatcher']);
 
 $console->setHelperSet(new Symfony\Component\Console\Helper\HelperSet(array(
