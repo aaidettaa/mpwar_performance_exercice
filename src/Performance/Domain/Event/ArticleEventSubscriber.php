@@ -16,6 +16,6 @@ class ArticleEventSubscriber implements EventSubscriberInterface
 
     public function onReadedArticle(ArticleEvent $event) {
         $theAddVisitArticleService = new AddVisitArticle($event->getRedis());
-        $theAddVisitArticleService->execute($event->getArticle());
+        $theAddVisitArticleService->execute($event->getArticle(), $event->getUserName());
     }
 }

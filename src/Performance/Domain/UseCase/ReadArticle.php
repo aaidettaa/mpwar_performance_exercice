@@ -23,10 +23,10 @@ class ReadArticle
         $this->redis = $a_redis;
     }
 
-    public function execute($article_id) {
+    public function execute($article_id, $user_name) {
     	$the_article = $this->articleRepository->findOneById($article_id);
 
-        $article_readed_event = new ArticleEvent($this->redis, $the_article);
+        $article_readed_event = new ArticleEvent($this->redis, $the_article, $user_name);
         $this->event_dispatcher->dispatch(ArticleEvents::READED, $article_readed_event);
 
         return $the_article;
