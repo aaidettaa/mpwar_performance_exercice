@@ -1,0 +1,27 @@
+{
+  "name": "mpwar_performance_exercise",
+  "version": "1.0.0",
+  "description": "Your company receives a new project that needs some work done. The client has a blog that allows authors to sign-up and write articles, but it needs some new features that your company needs to implement:\r - They want to start using Ansistrano to deploy the blog.\r - Use [Bootstrap](https://getbootstrap.com/) to give a basic layout to the blog. Remember to optimize the load of css and js files.\r - Authors should be able to upload their profile picture when creating their account. Upload these images to Amazon S3.\r - The home page should show the top 5 articles, according to the visits received. This ranking has two different views: global ranking; and currently logged user articles ranking. Use Redis to create this ranking.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aaidettaa/mpwar_performance_exercice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aaidettaa/mpwar_performance_exercice/issues"
+  },
+  "homepage": "https://github.com/aaidettaa/mpwar_performance_exercice#readme",
+  "devDependencies": {
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
+    "imports-loader": "^0.6.5",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.0"
+  }
+}

@@ -1,3 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
 /vendor/
 /resources/config/
+/node_modules
+/web/assets/js
