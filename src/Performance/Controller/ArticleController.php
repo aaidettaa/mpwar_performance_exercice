@@ -6,9 +6,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Performance\Domain\UseCase\ReadArticle;
+use Performance\Infrastructure\HttpCache\HttpCache;
 
 class ArticleController
 {
+    const KEY_FOR_ETAG = "response:article:";
+
     /**
      * @var \Twig_Environment
      */
@@ -24,10 +27,13 @@ class ArticleController
      */
     private $session;
 
-    public function __construct(\Twig_Environment $templating, ReadArticle $useCase, SessionInterface $session) {
+    private $httpCache;
+
+    public function __construct(\Twig_Environment $templating, ReadArticle $useCase, SessionInterface $session, HttpCache $httpCache) {
         $this->template = $templating;
         $this->useCase = $useCase;
         $this->session = $session;
+        $this->httpCache = $httpCache;
     }
 
     public function get($article_id)
@@ -38,6 +44,9 @@ class ArticleController
             throw new HttpException(404, "Article $article_id does not exist.");
         }
 
-        return new Response($this->template->render('article.twig', ['article' => $article]));
+        $responseContent = $this->template->render('article.twig', ['article' => $article]);
+        $key = self::KEY_FOR_ETAG . $article_id;
+        $this->httpCache->setEtag($key, $responseContent);
+        return new Response($responseContent);
     }
 }
