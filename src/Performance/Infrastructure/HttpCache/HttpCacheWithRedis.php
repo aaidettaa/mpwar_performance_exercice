@@ -23,4 +23,13 @@ class HttpCacheWithRedis implements HttpCache
         // TODO: Implement getEtag() method.
         throw new \Exception("Method not implemented");
     }
+    public function setResponseToCache($key, $value)
+    {
+        $this->redis->set($key, $value);
+    }
+
+    public function generateEtag($value)
+    {
+        return md5($value);
+    }
 }

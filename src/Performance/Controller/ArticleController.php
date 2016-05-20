@@ -10,7 +10,7 @@ use Performance\Infrastructure\HttpCache\HttpCache;
 
 class ArticleController
 {
-    const KEY_FOR_ETAG = "response:article:";
+    const KEY_FOR_ETAG = "cache:etag:article:";
 
     /**
      * @var \Twig_Environment
@@ -46,7 +46,11 @@ class ArticleController
 
         $responseContent = $this->template->render('article.twig', ['article' => $article]);
         $key = self::KEY_FOR_ETAG . $article_id;
-        $this->httpCache->setEtag($key, $responseContent);
-        return new Response($responseContent);
+        $etag = $this->httpCache->generateEtag($responseContent);
+        $this->httpCache->setEtag($key,$etag);
+
+        $response = new Response($responseContent);
+        $response->setEtag($etag);
+        return $response;
     }
 }
