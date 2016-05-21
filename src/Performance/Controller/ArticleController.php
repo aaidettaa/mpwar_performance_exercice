@@ -11,9 +11,6 @@ use Performance\Infrastructure\HttpCache\HttpCache;
 
 class ArticleController
 {
-    const KEY_FOR_LAST_MODIFIED = "cache:last:modified:article:";
-    const KEY_FOR_RESPONSE = "cache:response:article:";
-
     /**
      * @var \Twig_Environment
      */
@@ -46,7 +43,7 @@ class ArticleController
     public function get($article_id)
     {
         $response = new Response();
-        $lastModifiedArticleKey = self::KEY_FOR_LAST_MODIFIED . $article_id;
+        $lastModifiedArticleKey = HttpCache::KEY_FOR_LAST_MODIFIED . $article_id;
 
         $lastModified = $this->httpCache->getLastModified($lastModifiedArticleKey);
 
