@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7b1245224078a2755bb4e89cddb78347",
-    "content-hash": "9ea3ac8b2e73bffe43be57bf07cad065",
+    "hash": "a78272fa504989c07c49135453c73d38",
+    "content-hash": "1505cf5a3f7856ef22fad8dfcbb4fe6e",
     "packages": [
         {
             "name": "dflydev/doctrine-orm-service-provider",
@@ -664,6 +664,89 @@
             "time": "2016-01-05 21:34:58"
         },
         {
+            "name": "league/flysystem",
+            "version": "1.0.22",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/flysystem.git",
+                "reference": "bd73a91703969a2d20ab4bfbf971d6c2cbe36612"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/bd73a91703969a2d20ab4bfbf971d6c2cbe36612",
+                "reference": "bd73a91703969a2d20ab4bfbf971d6c2cbe36612",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "conflict": {
+                "league/flysystem-sftp": "<1.0.6"
+            },
+            "require-dev": {
+                "ext-fileinfo": "*",
+                "mockery/mockery": "~0.9",
+                "phpspec/phpspec": "^2.2",
+                "phpunit/phpunit": "~4.8 || ~5.0"
+            },
+            "suggest": {
+                "ext-fileinfo": "Required for MimeType",
+                "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
+                "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
+                "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
+                "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
+                "league/flysystem-copy": "Allows you to use Copy.com storage",
+                "league/flysystem-dropbox": "Allows you to use Dropbox storage",
+                "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
+                "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
+                "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
+                "league/flysystem-webdav": "Allows you to use WebDAV storage",
+                "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Flysystem\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frank de Jonge",
+                    "email": "info@frenky.net"
+                }
+            ],
+            "description": "Filesystem abstraction: Many filesystems, one API.",
+            "keywords": [
+                "Cloud Files",
+                "WebDAV",
+                "abstraction",
+                "aws",
+                "cloud",
+                "copy.com",
+                "dropbox",
+                "file systems",
+                "files",
+                "filesystem",
+                "filesystems",
+                "ftp",
+                "rackspace",
+                "remote",
+                "s3",
+                "sftp",
+                "storage"
+            ],
+            "time": "2016-04-28 06:53:12"
+        },
+        {
             "name": "pimple/pimple",
             "version": "v3.0.2",
             "source": {
@@ -753,12 +836,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/silexphp/Silex.git",
-                "reference": "5f0fc5c1b00c6dd94469ee0627e9c6578c4bcf08"
+                "reference": "17371e176243cb5d7b96aae12364ff4ef3c93e39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silexphp/Silex/zipball/5f0fc5c1b00c6dd94469ee0627e9c6578c4bcf08",
-                "reference": "5f0fc5c1b00c6dd94469ee0627e9c6578c4bcf08",
+                "url": "https://api.github.com/repos/silexphp/Silex/zipball/17371e176243cb5d7b96aae12364ff4ef3c93e39",
+                "reference": "17371e176243cb5d7b96aae12364ff4ef3c93e39",
                 "shasum": ""
             },
             "require": {
@@ -838,12 +921,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/silexphp/Silex-WebProfiler.git",
-                "reference": "ca6dee2229d62abfb081512737b9c72dedf9f953"
+                "reference": "584aae47b2b49d8a8e4d77694fdffd8b8e706e81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silexphp/Silex-WebProfiler/zipball/ca6dee2229d62abfb081512737b9c72dedf9f953",
-                "reference": "ca6dee2229d62abfb081512737b9c72dedf9f953",
+                "url": "https://api.github.com/repos/silexphp/Silex-WebProfiler/zipball/584aae47b2b49d8a8e4d77694fdffd8b8e706e81",
+                "reference": "584aae47b2b49d8a8e4d77694fdffd8b8e706e81",
                 "shasum": ""
             },
             "require": {
@@ -888,12 +971,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Sorien/silex-dbal-profiler.git",
-                "reference": "021899974d579ff46fd05b30f4a09df1bc95200f"
+                "reference": "ee15be8052131eec507da2f10dca6a3eb5a4d2eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Sorien/silex-dbal-profiler/zipball/021899974d579ff46fd05b30f4a09df1bc95200f",
-                "reference": "021899974d579ff46fd05b30f4a09df1bc95200f",
+                "url": "https://api.github.com/repos/Sorien/silex-dbal-profiler/zipball/ee15be8052131eec507da2f10dca6a3eb5a4d2eb",
+                "reference": "ee15be8052131eec507da2f10dca6a3eb5a4d2eb",
                 "shasum": ""
             },
             "require": {
