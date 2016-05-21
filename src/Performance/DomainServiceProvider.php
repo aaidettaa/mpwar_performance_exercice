@@ -39,7 +39,8 @@ class DomainServiceProvider implements ServiceProviderInterface
         };
 
         $app['controllers.readArticle'] = function () use ($app) {
-            return new \Performance\Controller\ArticleController($app['twig'], $app['useCases.readArticle'], $app['session'], $app['redisCache']);
+            return new \Performance\Controller\ArticleController($app['twig'], $app['useCases.readArticle'],
+                                                                 $app['session'], $app['redisCache'], $app['request_stack']->getCurrentRequest());
         };
 
         $app['controllers.writeArticle'] = function () use ($app) {

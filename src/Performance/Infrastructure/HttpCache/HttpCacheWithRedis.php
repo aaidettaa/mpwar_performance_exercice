@@ -4,6 +4,7 @@
 namespace Performance\Infrastructure\HttpCache;
 
 use Redis;
+use \DateTime;
 
 class HttpCacheWithRedis implements HttpCache
 {
@@ -13,23 +14,15 @@ class HttpCacheWithRedis implements HttpCache
         $this->redis = $redis;
     }
 
-    public function setEtag($key, $value)
+
+    public function getLastModified($key)
     {
-        $this->redis->set($key, $value);
+       $lastModified =  $this->redis->get($key);
+       return new DateTime($lastModified);
     }
 
-    public function getEtag($key)
-    {
-        // TODO: Implement getEtag() method.
-        throw new \Exception("Method not implemented");
-    }
-    public function setResponseToCache($key, $value)
-    {
-        $this->redis->set($key, $value);
-    }
-
-    public function generateEtag($value)
-    {
-        return md5($value);
+    public function setLastModified($key, \DateTime $dateTime){
+        $dateFormated = $dateTime->format(self::FORMAT_DATE);
+        $this->redis->set($key,$dateFormated);
     }
 }

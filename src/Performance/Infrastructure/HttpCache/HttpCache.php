@@ -2,12 +2,12 @@
 
 
 namespace Performance\Infrastructure\HttpCache;
-
+use \DateTime;
 
 interface HttpCache
 {
-    public function setEtag($key, $value);
-    public function getEtag($key);
-    public function setResponseToCache($key, $value);
-    public function generateEtag($value);
+    const FORMAT_DATE =  'D, j M Y H:i:s T';
+
+    public function getLastModified($key);
+    public function setLastModified($key, DateTime $date);
 }
