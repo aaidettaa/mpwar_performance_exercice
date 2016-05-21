@@ -1,6 +1,8 @@
 <?php
 
 use Performance\Infrastructure\Session\NativeRedisSessionHandler;
+use Performance\Domain\Event\ArticleEventSubscriber;
+use Performance\Domain\ServiceProvider\RedisServiceProvider;
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
@@ -8,6 +10,8 @@ use Silex\Provider\ServiceControllerServiceProvider;
 use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\SessionServiceProvider;
+use Symfony\Component\HttpFoundation\Request;
+use Performance\Domain\ServiceProvider\RedisHttpCacheServiceProvider;
 
 $app = new Application();
 
@@ -30,17 +34,19 @@ $app['twig'] = $app->extend('twig', function (\Twig_Environment $twig) use ($app
     return $twig;
 });
 
-//$app['twig'] =
-//    function($app) {
-//        $app->extend('twig', function($twig, $app) {
-//            $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) {
-//                // implement whatever logic you need to determine the asset path
-//
-//                return sprintf('/var/www/mpwar_performance_exercise/web/assets/%s', ltrim($asset, '/'));
-//            }));
-//
-//            return $twig;
-//        });
-//    };
+$app->register(new RedisServiceProvider());
+
+$app['redis.options'] = [
+    'host' => 'localhost',
+    'port' => 6379,
+    'timeout' => 0,
+    'password' => 'qwerty'
+];
+
+$app->register(new RedisHttpCacheServiceProvider());
+
+$app->before(function (Request $request) use ($app) {
+    $app['dispatcher']->addSubscriber(new ArticleEventSubscriber());
+});
 
 return $app;

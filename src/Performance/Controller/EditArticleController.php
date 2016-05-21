@@ -53,7 +53,7 @@ class EditArticleController
             return new RedirectResponse($this->url_generator->generate('login'));
         }
 
-        $article = $this->readArticle->execute($article_id);
+        $article = $this->readArticle->execute($article_id, $this->session->get('author_id'));
         $page = 'editArticle';
         return new Response($this->template->render('editArticle.twig', [
             'article' => $article,
