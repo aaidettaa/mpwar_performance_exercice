@@ -15,7 +15,8 @@ class ArticleEventSubscriber implements EventSubscriberInterface
 
     public static function getSubscribedEvents() {
         return array(ArticleEvents::READED   => 'onReadedArticle',
-            ArticleEvents::MODIFIED => 'onModifiedArticle');
+                     ArticleEvents::MODIFIED => 'onModifiedArticle',
+                     ArticleEvents::CREATED  => 'onCreatedArticle');
     }
 
     public function onReadedArticle(ArticleEvent $event) {
@@ -24,9 +25,18 @@ class ArticleEventSubscriber implements EventSubscriberInterface
     }
 
     public function onModifiedArticle(ArticleEvent $event){
+        $this->addLastModified($event);
+    }
+
+    public function onCreatedArticle(ArticleEvent $event){
+        $this->addLastModified($event);
+    }
+
+    private function addLastModified(ArticleEvent $event){
         $redisHttpCache = new HttpCacheWithRedis($event->getRedis());
         $addLastModifiedService = new AddLastModifiedArticle($redisHttpCache);
         $key = HttpCache::KEY_FOR_LAST_MODIFIED  . $event->getArticle()->getId();
         $addLastModifiedService->execute($key);
     }
+
 }

@@ -8,4 +8,5 @@ final class ArticleEvents
 {
     const READED = 'article.readed';
     const MODIFIED = 'article.modified';
+    const CREATED = 'article.created';
 }
