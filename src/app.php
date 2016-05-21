@@ -10,6 +10,7 @@ use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
+use Performance\Domain\ServiceProvider\RedisHttpCacheServiceProvider;
 
 $app = new Application();
 
@@ -30,6 +31,15 @@ $app['twig'] = $app->extend('twig', function (\Twig_Environment $twig) use ($app
 });
 
 $app->register(new RedisServiceProvider());
+
+$app['redis.options'] = [
+    'host' => 'localhost',
+    'port' => 6379,
+    'timeout' => 0,
+    'password' => 'qwerty'
+];
+
+$app->register(new RedisHttpCacheServiceProvider());
 
 $app->before(function (Request $request) use ($app) {
     $app['dispatcher']->addSubscriber(new ArticleEventSubscriber());

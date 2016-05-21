@@ -19,11 +19,13 @@ class DomainServiceProvider implements ServiceProviderInterface
         };
 
         $app['useCases.writeArticle'] = function () use ($app) {
-            return new \Performance\Domain\UseCase\WriteArticle($app['orm.em']->getRepository('Performance\Domain\Article'), $app['orm.em']->getRepository('Performance\Domain\Author'), $app['session']);
+            return new \Performance\Domain\UseCase\WriteArticle($app['orm.em']->getRepository('Performance\Domain\Article'), $app['orm.em']->getRepository('Performance\Domain\Author'),
+                                                                $app['session'], $app['dispatcher'], $app['redis']);
         };
 
         $app['useCases.editArticle'] = function () use ($app) {
-            return new \Performance\Domain\UseCase\EditArticle($app['orm.em']->getRepository('Performance\Domain\Article'), $app['orm.em']->getRepository('Performance\Domain\Author'), $app['session']);
+            return new \Performance\Domain\UseCase\EditArticle( $app['orm.em']->getRepository('Performance\Domain\Article'), $app['orm.em']->getRepository('Performance\Domain\Author'),
+                                                                $app['session'], $app['dispatcher'], $app['redis']);
         };
 
         $app['useCases.readArticle'] = function () use ($app) {
@@ -39,7 +41,8 @@ class DomainServiceProvider implements ServiceProviderInterface
         };
 
         $app['controllers.readArticle'] = function () use ($app) {
-            return new \Performance\Controller\ArticleController($app['twig'], $app['useCases.readArticle'], $app['session']);
+            return new \Performance\Controller\ArticleController($app['twig'], $app['useCases.readArticle'],
+                                                                 $app['session'], $app['redisCache'], $app['request_stack']->getCurrentRequest());
         };
 
         $app['controllers.writeArticle'] = function () use ($app) {
