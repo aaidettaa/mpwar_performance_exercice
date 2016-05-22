@@ -33,7 +33,7 @@ $app['session.storage.handler'] = function ($app) {
 
 $app['twig'] = $app->extend('twig', function (\Twig_Environment $twig) use ($app) {
     $twig->addFunction(new \Twig_SimpleFunction('asset', function ($asset) {
-        return sprintf('/mpwar_performance_exercise/web/assets/%s', ltrim($asset, '/'));
+        return sprintf('http://dafyuik0phxjj.cloudfront.net/assets/%s', ltrim($asset, '/'));
     }));
     return $twig;
 });
