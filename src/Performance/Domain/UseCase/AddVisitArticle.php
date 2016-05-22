@@ -20,5 +20,6 @@ class AddVisitArticle {
     public function execute(Article $an_article,$a_userName){
         $this->redis->zIncrBy('RankingGlobalArticles', 1, $an_article->getId());
         $this->redis->zIncrBy('RankingArticlesByUser_'.$a_userName, 1, $an_article->getId());
+        $this->redis->zIncrBy('RankingArticlesByAuthor_'.$an_article->getAuthor()->getId(), 1, $an_article->getId());
     }
 }
