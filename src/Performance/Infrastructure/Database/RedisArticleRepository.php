@@ -4,16 +4,17 @@ namespace Performance\Infrastructure\Database;
 
 use Performance\Domain\Article;
 use Performance\Domain\ArticleRepository;
-use Redis;
+use Performance\Infrastructure\HttpCache\HttpCache;
+
 
 class RedisArticleRepository implements ArticleRepository
 {
     private $articleRepository;
-    private $redis;
-    public function __construct(ArticleRepository $articleRepository, Redis $redis)
+    private $httpCache;
+    public function __construct(ArticleRepository $articleRepository, HttpCache $httpCache)
     {
         $this->articleRepository = $articleRepository;
-        $this->redis = $redis;
+        $this->httpCache = $httpCache;
     }
 
     public function save(Article $article)
@@ -24,7 +25,10 @@ class RedisArticleRepository implements ArticleRepository
 
     public function findOneById($article_id)
     {
-        //TODO get article for redis
+        $article = $this->httpCache->getArticle($article_id);
+        if($article != null){
+            return $article;
+        }
         return $this->articleRepository->findOneById($article_id);
     }
 

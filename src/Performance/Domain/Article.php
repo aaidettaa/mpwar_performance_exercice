@@ -44,6 +44,17 @@ class Article
 		return $article;
 	}
 
+    public static function create($id ,$title, $content, Author $author, $created_at){
+        $article = new Article();
+        $article->id = $id;
+        $article->title = $title;
+        $article->content = $content;
+        $article->author = $author;
+        $article->created_at = (new \DateTime())->setTimestamp($created_at);
+
+        return $article;
+    }
+
 	public function edit($title, $content, $author) {
 		$this->title = $title;
 		$this->content = $content;

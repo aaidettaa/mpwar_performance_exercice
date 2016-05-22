@@ -13,7 +13,7 @@ class ArticlesInRedisServiceProvider implements ServiceProviderInterface
     {
         $pimple['redisArticleRepository'] = function () use ($pimple) {
             $redisArticleRepository = new RedisArticleRepository( $pimple['orm.em']->getRepository('Performance\Domain\Article'),
-                                                                  $pimple['redis']);
+                                                                  $pimple['redisCache']);
             return $redisArticleRepository;
         };
     }

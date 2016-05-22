@@ -50,15 +50,16 @@ class ArticleController
         if (!$article) {
             throw new HttpException(404, "Article $article_id does not exist.");
         }
+
         $response = new Response();
         $lastModifiedArticleKey = HttpCache::KEY_FOR_LAST_MODIFIED . $article_id;
-
         $lastModified = $this->httpCache->getLastModified($lastModifiedArticleKey);
 
         $response->setLastModified($lastModified);
         if($response->isNotModified($this->request)){
             return $response;
         }
+        $this->httpCache->setResponse($article);
         $page = 'article';
         $responseContent = $this->template->render('article.twig', [
             'article' => $article,
