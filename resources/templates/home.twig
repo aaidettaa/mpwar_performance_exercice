@@ -9,7 +9,7 @@
 		<h2>All Articles</h2>
 		{% for article in articles %}
 			<div class="blog-post">
-				<h2 class="blog-post-title"><a href="{{ path('article', {article_id: article.id}) }}">{{ article.title | title }}</a></h2>
+				<h3 class="blog-post-title"><a href="{{ path('article', {article_id: article.id}) }}">{{ article.title | title }}</a></h3>
 				<p class="blog-post-meta">by {{ article.author.username }}, on {{ article.date | date("d/m/Y H:i") }}
 				{% if user_id == article.author.Id %}
 					<a href="{{ path('editArticle', {article_id: article.id}) }}">Editar</a>
@@ -25,33 +25,51 @@
 				</p>
 			</div>
 		{% else %}
-			<h1>There are no articles to show</h1>
+			<p>There are no articles to show</p>
 		{% endfor %}
 	</div>
 	<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
 		<div class="sidebar-module sidebar-module-inset">
 			<h3>Global Ranking</h3>
 			<ol class="list-unstyled">
-				<li><a href="#">GitHub</a></li>
-				<li><a href="#">Twitter</a></li>
-				<li><a href="#">Facebook</a></li>
+				{% for article in rankingGlobal %}
+					<li>
+						<a href="{{ path('article', {article_id: article.id}) }}">
+							{{ article.title | title }}
+						</a>
+					</li>
+				{% else %}
+					<li><p>There are no articles to show</p></li>
+				{% endfor %}
 			</ol>
 		</div>
 		{% if logged %}
 			<div class="sidebar-module sidebar-module-inset">
 				<h3>User Ranking</h3>
 				<ol class="list-unstyled">
-					<li><a href="#">GitHub</a></li>
-					<li><a href="#">Twitter</a></li>
-					<li><a href="#">Facebook</a></li>
+					{% for article in rankingUser %}
+						<li>
+							<a href="{{ path('article', {article_id: article.id}) }}">
+								{{ article.title | title }}
+							</a>
+						</li>
+					{% else %}
+						<li><p>There are no articles to show</p></li>
+					{% endfor %}
 				</ol>
 			</div>
 			<div class="sidebar-module sidebar-module-inset">
 				<h3>Author Ranking</h3>
 				<ol class="list-unstyled">
-					<li><a href="#">GitHub</a></li>
-					<li><a href="#">Twitter</a></li>
-					<li><a href="#">Facebook</a></li>
+					{% for article in rankingAuthor %}
+						<li>
+							<a href="{{ path('article', {article_id: article.id}) }}">
+								{{ article.title | title }}
+							</a>
+						</li>
+					{% else %}
+						<li><p>There are no articles to show</p></li>
+					{% endfor %}
 				</ol>
 			</div>
 		{% endif %}

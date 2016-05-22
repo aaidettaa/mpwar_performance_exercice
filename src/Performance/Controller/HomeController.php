@@ -46,11 +46,20 @@ class HomeController
         if (!$this->session->get('author_id')) {
             $logged = false;
         }
+
         $user_id = $this->session->get('author_id');
+
         $articles = $this->useCase->execute($this->redis, $user_id);
+        $rankingGlobal = $articles;
+        $rankingUser = $articles;
+        $rankingAuthor = $articles;
+
         $page = 'home';
         return new Response($this->template->render('home.twig', [
             'articles' => $articles,
+            'rankingGlobal' => $rankingGlobal,
+            'rankingUser' => $rankingUser,
+            'rankingAuthor' => $rankingAuthor,
             'logged' => $logged,
             'page' => $page,
             'user_id' => $user_id
