@@ -2,11 +2,11 @@
 
 namespace Performance\Controller;
 
+use Performance\Domain\UseCase\Login;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Performance\Domain\UseCase\Login;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class LoginController
@@ -31,7 +31,11 @@ class LoginController
      */
     private $session;
 
-    public function __construct(\Twig_Environment $templating, UrlGeneratorInterface $url_generator, Login $useCase, SessionInterface $session) {
+    public function __construct(\Twig_Environment $templating,
+                                UrlGeneratorInterface $url_generator,
+                                Login $useCase,
+                                SessionInterface $session)
+    {
         $this->template = $templating;
         $this->url_generator = $url_generator;
         $this->useCase = $useCase;

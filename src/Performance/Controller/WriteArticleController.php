@@ -2,11 +2,11 @@
 
 namespace Performance\Controller;
 
+use Performance\Domain\UseCase\WriteArticle;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Performance\Domain\UseCase\WriteArticle;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class WriteArticleController
@@ -31,7 +31,11 @@ class WriteArticleController
      */
     private $session;
 
-    public function __construct(\Twig_Environment $templating, UrlGeneratorInterface $url_generator, WriteArticle $useCase, SessionInterface $session) {
+    public function __construct(\Twig_Environment $templating,
+                                UrlGeneratorInterface $url_generator,
+                                WriteArticle $useCase,
+                                SessionInterface $session)
+    {
         $this->template = $templating;
         $this->url_generator = $url_generator;
         $this->useCase = $useCase;
@@ -54,11 +58,13 @@ class WriteArticleController
 
     public function post(Request $request)
     {
-    	$title = $request->request->get('title');
-    	$content = $request->request->get('content');
+        $title = $request->request->get('title');
+        $content = $request->request->get('content');
 
-    	$article = $this->useCase->execute($title, $content);
+        $article = $this->useCase->execute($title, $content);
 
-        return new RedirectResponse($this->url_generator->generate('article', ['article_id' => $article->getId()]));
+        return new RedirectResponse($this->url_generator->generate('article', [
+            'article_id' => $article->getId()
+        ]));
     }
 }
