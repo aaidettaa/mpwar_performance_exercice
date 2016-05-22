@@ -17,8 +17,13 @@ class ListArticles
         $this->articleRepository = $articleRepository;
     }
 
-    public function execute(Redis $redis, $user_id) {
+    public function execute(Redis $redis, $userId) {
         $getTopFive = new GetTopFive($redis, $this->articleRepository);
-        return $getTopFive->getGlobally();
+        if($userId == null){
+            return $getTopFive->getGlobally();
+        }
+
+        return $getTopFive->getByUser($userId);
+
     }
 }

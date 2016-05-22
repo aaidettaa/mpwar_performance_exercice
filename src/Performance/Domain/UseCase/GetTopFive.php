@@ -8,6 +8,8 @@ use Redis;
 
 class GetTopFive
 {
+    const RANKING_GLOBALLY = "RankingGlobalArticles";
+    const RANKING_BY_USER = "RankingArticlesByUser_";
     private $redis;
     private $articleRepository;
 
@@ -18,7 +20,17 @@ class GetTopFive
     }
 
     public function getGlobally(){
-        $topFiveIDs = $this->redis->zRange('RankingGlobalArticles', -5, -1);
+        $ranking = self::RANKING_GLOBALLY;
+        return $this->getArticles($ranking);
+    }
+
+    public function getByUser($user_id){
+        $ranking = self::RANKING_BY_USER . $user_id;
+        return $this->getArticles($ranking);
+    }
+
+    private function getArticles($ranking){
+        $topFiveIDs = $this->redis->zRange($ranking, -5, -1);
         $topFiveIDs = array_reverse($topFiveIDs);
         $articles = [];
         foreach ($topFiveIDs as $article_id){
