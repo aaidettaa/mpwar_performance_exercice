@@ -3,6 +3,8 @@
 namespace Performance\Domain\UseCase;
 
 use Performance\Domain\ArticleRepository;
+use Performance\Domain\UseCase\GetTopFive;
+use Redis;
 
 class ListArticles
 {
@@ -15,7 +17,8 @@ class ListArticles
         $this->articleRepository = $articleRepository;
     }
 
-    public function execute() {
-    	return $this->articleRepository->findAll();
+    public function execute(Redis $redis, $user_id) {
+        $getTopFive = new GetTopFive($redis, $this->articleRepository);
+        return $getTopFive->getGlobally();
     }
 }
