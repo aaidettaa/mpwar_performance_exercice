@@ -14,22 +14,27 @@ class ArticleEvent extends Event
     private $article;
     private $userName;
 
-    public function __construct(Redis $a_redis, Article $an_article, $a_userName)
+    public function __construct(Redis $a_redis,
+                                Article $an_article,
+                                $a_userName)
     {
         $this->redis = $a_redis;
         $this->article = $an_article;
         $this->userName = $a_userName;
     }
 
-    public function getRedis(){
+    public function getRedis()
+    {
         return $this->redis;
     }
 
-    public  function getArticle(){
+    public function getArticle()
+    {
         return $this->article;
     }
 
-    public function getUserName(){
+    public function getUserName()
+    {
         return $this->userName;
     }
 }
