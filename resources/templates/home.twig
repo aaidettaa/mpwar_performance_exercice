@@ -6,6 +6,7 @@
 
 {% block content %}
 	<div class="col-sm-8 blog-main">
+		<h2>All Articles</h2>
 		{% for article in articles %}
 			<div class="blog-post">
 				<h2 class="blog-post-title"><a href="{{ path('article', {article_id: article.id}) }}">{{ article.title | title }}</a></h2>
@@ -29,7 +30,7 @@
 	</div>
 	<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
 		<div class="sidebar-module sidebar-module-inset">
-			<h4>Global Ranking</h4>
+			<h3>Global Ranking</h3>
 			<ol class="list-unstyled">
 				<li><a href="#">GitHub</a></li>
 				<li><a href="#">Twitter</a></li>
@@ -38,7 +39,15 @@
 		</div>
 		{% if logged %}
 			<div class="sidebar-module sidebar-module-inset">
-				<h4>User Ranking</h4>
+				<h3>User Ranking</h3>
+				<ol class="list-unstyled">
+					<li><a href="#">GitHub</a></li>
+					<li><a href="#">Twitter</a></li>
+					<li><a href="#">Facebook</a></li>
+				</ol>
+			</div>
+			<div class="sidebar-module sidebar-module-inset">
+				<h3>Author Ranking</h3>
 				<ol class="list-unstyled">
 					<li><a href="#">GitHub</a></li>
 					<li><a href="#">Twitter</a></li>

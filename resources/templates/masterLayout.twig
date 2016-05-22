@@ -27,21 +27,21 @@
                         </li>
                         {% if logged %}
                             <li {% if page == 'writeArticle' %}class="active"{% endif %}>
-                                <a class="blog-nav-item" href="{{ path('writeArticle') }}">writeArticle</a>
+                                <a class="blog-nav-item" href="{{ path('writeArticle') }}">Write Article</a>
                             </li>
                         {% endif %}
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if logged %}
                             <li>
-                                <a class="blog-nav-item" href="{{ path('logout') }}">logout</a>
+                                <a class="blog-nav-item" href="{{ path('logout') }}">Logout</a>
                             </li>
                         {% else %}
                             <li {% if page == 'login' %}class="active"{% endif %}>
-                                <a class="blog-nav-item" href="{{ path('login') }}">login</a>
+                                <a class="blog-nav-item" href="{{ path('login') }}">Login</a>
                             </li>
                             <li {% if page == 'register' %}class="active"{% endif %}>
-                                <a class="blog-nav-item" href="{{ path('register') }}">register</a>
+                                <a class="blog-nav-item" href="{{ path('register') }}">Register</a>
                             </li>
                         {% endif %}
                     </ul>
