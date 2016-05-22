@@ -40,6 +40,7 @@ class HttpCacheWithRedis implements HttpCache
     public function setResponse(Article $article)
     {
         $key = self::RESPONSE_ARTICLE . $article->getId();
+        $this->redis->del($key);
         $this->redis->rPush( $key, $article->getId(), $article->getTitle(), $article->getContent(),
                             $article->getDate(), $article->getTags(), $article->getAuthor()->getId(),
                             $article->getAuthor()->getUsername()
