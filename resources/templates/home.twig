@@ -7,6 +7,7 @@
 {% block content %}
 	<div class="col-sm-8 blog-main">
 		<h2>All Articles</h2>
+		<p>All articles wrties by all authors</p>
 		{% for article in articles %}
 			<div class="blog-post">
 				<h3 class="blog-post-title"><a href="{{ path('article', {article_id: article.id}) }}">{{ article.title | title }}</a></h3>
@@ -31,6 +32,7 @@
 	<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
 		<div class="sidebar-module sidebar-module-inset">
 			<h3>Global Ranking</h3>
+			<p>The articles most visited</p>
 			<ol class="list-unstyled">
 				{% for article in rankingGlobal %}
 					<li>
@@ -46,6 +48,7 @@
 		{% if logged %}
 			<div class="sidebar-module sidebar-module-inset">
 				<h3>User Ranking</h3>
+				<p>The articles most visited by the user</p>
 				<ol class="list-unstyled">
 					{% for article in rankingUser %}
 						<li>
@@ -60,6 +63,7 @@
 			</div>
 			<div class="sidebar-module sidebar-module-inset">
 				<h3>Author Ranking</h3>
+				<p>The articles most visited writes by the user</p>
 				<ol class="list-unstyled">
 					{% for article in rankingAuthor %}
 						<li>
