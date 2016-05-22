@@ -2,7 +2,7 @@
 
 use Performance\Infrastructure\Session\NativeRedisSessionHandler;
 use Performance\Domain\Event\ArticleEventSubscriber;
-use Performance\Domain\ServiceProvider\RedisServiceProvider;
+use Performance\Infrastructure\ServiceProvider\RedisServiceProvider;
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
@@ -11,7 +11,7 @@ use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
-use Performance\Domain\ServiceProvider\RedisHttpCacheServiceProvider;
+use Performance\Infrastructure\ServiceProvider\RedisHttpCacheServiceProvider;
 use Performance\Infrastructure\ServiceProvider\ArticlesInRedisServiceProvider;
 
 $app = new Application();
