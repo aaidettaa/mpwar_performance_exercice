@@ -1,18 +1,18 @@
 <?php
 
-use Performance\Infrastructure\Session\NativeRedisSessionHandler;
+use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 use Performance\Domain\Event\ArticleEventSubscriber;
+use Performance\Infrastructure\ServiceProvider\ArticlesInRedisServiceProvider;
+use Performance\Infrastructure\ServiceProvider\RedisHttpCacheServiceProvider;
 use Performance\Infrastructure\ServiceProvider\RedisServiceProvider;
+use Performance\Infrastructure\Session\NativeRedisSessionHandler;
 use Silex\Application;
+use Silex\Provider\DoctrineServiceProvider;
+use Silex\Provider\ServiceControllerServiceProvider;
+use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
-use Silex\Provider\ServiceControllerServiceProvider;
-use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
-use Silex\Provider\DoctrineServiceProvider;
-use Silex\Provider\SessionServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
-use Performance\Infrastructure\ServiceProvider\RedisHttpCacheServiceProvider;
-use Performance\Infrastructure\ServiceProvider\ArticlesInRedisServiceProvider;
 
 $app = new Application();
 
@@ -23,6 +23,9 @@ $app->register(new SessionServiceProvider());
 $app->register(new ServiceControllerServiceProvider());
 $app->register(new DoctrineServiceProvider);
 $app->register(new DoctrineOrmServiceProvider);
+$app->register(new RedisServiceProvider());
+$app->register(new ArticlesInRedisServiceProvider());
+$app->register(new RedisHttpCacheServiceProvider());
 
 $app['session.storage.handler'] = function ($app) {
     return new NativeRedisSessionHandler($app['session.storage.save_path']);
@@ -34,18 +37,6 @@ $app['twig'] = $app->extend('twig', function (\Twig_Environment $twig) use ($app
     }));
     return $twig;
 });
-
-$app->register(new RedisServiceProvider());
-$app->register(new ArticlesInRedisServiceProvider());
-
-$app['redis.options'] = [
-    'host' => 'localhost',
-    'port' => 6379,
-    'timeout' => 0,
-    'password' => 'qwerty'
-];
-
-$app->register(new RedisHttpCacheServiceProvider());
 
 $app->before(function (Request $request) use ($app) {
     $app['dispatcher']->addSubscriber(new ArticleEventSubscriber());
