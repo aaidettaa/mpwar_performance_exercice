@@ -12,6 +12,7 @@ use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\SessionServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Performance\Domain\ServiceProvider\RedisHttpCacheServiceProvider;
+use Performance\Infrastructure\ServiceProvider\ArticlesInRedisServiceProvider;
 
 $app = new Application();
 
@@ -35,6 +36,7 @@ $app['twig'] = $app->extend('twig', function (\Twig_Environment $twig) use ($app
 });
 
 $app->register(new RedisServiceProvider());
+$app->register(new ArticlesInRedisServiceProvider());
 
 $app['redis.options'] = [
     'host' => 'localhost',

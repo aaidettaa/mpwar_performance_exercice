@@ -33,7 +33,7 @@ class DomainServiceProvider implements ServiceProviderInterface
         };
 
         $app['useCases.listArticles'] = function () use ($app) {
-            return new \Performance\Domain\UseCase\ListArticles($app['orm.em']->getRepository('Performance\Domain\Article'));
+            return new \Performance\Domain\UseCase\ListArticles($app['redisArticleRepository']);
         };
 
         $app['useCases.addVisitArticle'] = function () use ($app) {
