@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-		<h3>by {{ article.author.username }}, on {{ article.date | date("d/m/Y H:i") }}</h3>
+		<h2>by {{ article.author.username }}, on {{ article.date | date("d/m/Y H:i") }}</h2>
 		<p>
 			{{ article.content }}
 		</p>

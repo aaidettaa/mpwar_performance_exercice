@@ -2,10 +2,10 @@
 
 namespace Performance\Controller;
 
+use Performance\Domain\UseCase\SignUp;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Performance\Domain\UseCase\SignUp;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -31,7 +31,11 @@ class RegisterController
      */
     private $session;
 
-    public function __construct(\Twig_Environment $templating, UrlGeneratorInterface $url_generator, SignUp $useCase, SessionInterface $session) {
+    public function __construct(\Twig_Environment $templating,
+                                UrlGeneratorInterface $url_generator,
+                                SignUp $useCase,
+                                SessionInterface $session)
+    {
         $this->template = $templating;
         $this->url_generator = $url_generator;
         $this->useCase = $useCase;
@@ -53,10 +57,10 @@ class RegisterController
 
     public function post(Request $request)
     {
-    	$username = $request->request->get('username');
-    	$password = $request->request->get('password');
+        $username = $request->request->get('username');
+        $password = $request->request->get('password');
 
-    	$this->useCase->execute($username, $password);
+        $this->useCase->execute($username, $password);
 
         return new RedirectResponse($this->url_generator->generate('login'));
     }

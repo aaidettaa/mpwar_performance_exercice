@@ -2,22 +2,21 @@
 
 namespace Performance\Domain\UseCase;
 
-use Performance\Domain\Article;
 use Performance\Domain\ArticleRepository;
 use Performance\Domain\AuthorRepository;
-use Performance\Domain\Exception\Forbidden;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Performance\Domain\Event\ArticleEvent;
 use Performance\Domain\Event\ArticleEvents;
+use Performance\Domain\Exception\Forbidden;
 use Redis;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class EditArticle
 {
     /**
      * @var ArticleRepository
      */
-	private $articleRepository;
+    private $articleRepository;
 
     /**
      * @var AuthorRepository
@@ -27,14 +26,24 @@ class EditArticle
     /**
      * @var SessionInterface
      */
-	private $session;
+    private $session;
 
+    /**
+     * @var EventDispatcherInterface
+     */
     private $eventDispatcher;
 
+    /**
+     * @var Redis
+     */
     private $redis;
 
-    public function __construct(ArticleRepository $articleRepository, AuthorRepository $authorRepository, SessionInterface $session,
-                                EventDispatcherInterface $eventDispatcher, Redis $redis) {
+    public function __construct(ArticleRepository $articleRepository,
+                                AuthorRepository $authorRepository,
+                                SessionInterface $session,
+                                EventDispatcherInterface $eventDispatcher,
+                                Redis $redis)
+    {
         $this->articleRepository = $articleRepository;
         $this->authorRepository = $authorRepository;
         $this->session = $session;
@@ -42,10 +51,13 @@ class EditArticle
         $this->redis = $redis;
     }
 
-    public function execute($article_id, $title, $content) {
-    	$author = $this->getAuthor();
-    	$article = $this->articleRepository->findOneById($article_id);
-    	$article->edit($title, $content, $author);
+    public function execute($article_id, $title, $content)
+    {
+        $author = $this->getAuthor();
+        $article = $this->articleRepository->findOneById($article_id);
+
+        $article->edit($title, $content, $author);
+
         $this->articleRepository->save($article);
 
         $modifiedEvent = new ArticleEvent($this->redis, $article, $author);
@@ -54,7 +66,8 @@ class EditArticle
         return $article;
     }
 
-    private function getAuthor() {
+    private function getAuthor()
+    {
         $author_id = $this->session->get('author_id');
 
         if (!$author_id) {

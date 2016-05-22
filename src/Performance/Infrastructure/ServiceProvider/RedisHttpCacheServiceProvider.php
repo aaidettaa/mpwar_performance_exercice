@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Performance\Domain\ServiceProvider;
+namespace Performance\Infrastructure\ServiceProvider;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;

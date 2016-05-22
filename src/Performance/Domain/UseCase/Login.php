@@ -17,12 +17,15 @@ class Login
      */
     private $session;
 
-    public function __construct(AuthorRepository $authorRepository, SessionInterface $session) {
+    public function __construct(AuthorRepository $authorRepository,
+                                SessionInterface $session)
+    {
         $this->authorRepository = $authorRepository;
         $this->session = $session;
     }
 
-    public function execute($username, $plainTextPassword) {
+    public function execute($username, $plainTextPassword)
+    {
         $author = $this->authorRepository->findOneByUsername($username);
 
         if ($author) {

@@ -7,12 +7,12 @@ class Article
     /**
      * @var int $id
      */
-	private $id;
+    private $id;
 
     /**
      * @var string $title
      */
-	private $title;
+    private $title;
 
     /**
      * @var string $content
@@ -22,55 +22,75 @@ class Article
     /**
      * @var Author $author
      */
-	private $author;
+    private $author;
 
     /**
      * @var array $tags
      */
-	private $tags;
+    private $tags;
 
     /**
      * @var int $created_at
      */
-	private $created_at;
+    private $created_at;
 
-	public static function write($title, $content, Author $author) {
-		$article = new Article();
-		$article->title = $title;
-		$article->content = $content;
-		$article->author = $author;
-		$article->created_at = (new \DateTime())->getTimestamp();
+    public static function write($title, $content, Author $author)
+    {
+        $article = new Article();
+        $article->title = $title;
+        $article->content = $content;
+        $article->author = $author;
+        $article->created_at = (new \DateTime())->getTimestamp();
 
-		return $article;
-	}
+        return $article;
+    }
 
-	public function edit($title, $content, $author) {
-		$this->title = $title;
-		$this->content = $content;
-		$this->author = $author;
-	}
+    public static function create($id, $title, $content, Author $author, $created_at)
+    {
+        $article = new Article();
+        $article->id = $id;
+        $article->title = $title;
+        $article->content = $content;
+        $article->author = $author;
+        $article->created_at = (new \DateTime())->setTimestamp($created_at);
 
-	public function getId() {
-		return $this->id;
-	}
+        return $article;
+    }
 
-	public function getTitle() {
-		return $this->title;
-	}
+    public function edit($title, $content, $author)
+    {
+        $this->title = $title;
+        $this->content = $content;
+        $this->author = $author;
+    }
 
-	public function getContent() {
-		return $this->content;
-	}
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	public function getAuthor() {
-		return $this->author;
-	}
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
-	public function getTags() {
-		return $this->tags;
-	}
+    public function getContent()
+    {
+        return $this->content;
+    }
 
-	public function getDate() {
-		return $this->created_at;
-	}
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    public function getDate()
+    {
+        return $this->created_at;
+    }
 }
