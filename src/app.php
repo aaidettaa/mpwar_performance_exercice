@@ -5,6 +5,7 @@ use Performance\Domain\Event\ArticleEventSubscriber;
 use Performance\Infrastructure\ServiceProvider\ArticlesInRedisServiceProvider;
 use Performance\Infrastructure\ServiceProvider\RedisHttpCacheServiceProvider;
 use Performance\Infrastructure\ServiceProvider\RedisServiceProvider;
+use Performance\Infrastructure\ServiceProvider\ImageAwsS3ServiceProvider;
 use Performance\Infrastructure\Session\NativeRedisSessionHandler;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
@@ -26,6 +27,7 @@ $app->register(new DoctrineOrmServiceProvider);
 $app->register(new RedisServiceProvider());
 $app->register(new ArticlesInRedisServiceProvider());
 $app->register(new RedisHttpCacheServiceProvider());
+$app->register(new ImageAwsS3ServiceProvider());
 
 $app['session.storage.handler'] = function ($app) {
     return new NativeRedisSessionHandler($app['session.storage.save_path']);

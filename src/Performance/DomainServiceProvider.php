@@ -27,7 +27,7 @@ class DomainServiceProvider implements ServiceProviderInterface
     public function register(Container $app)
     {
         $app['useCases.signUp'] = function () use ($app) {
-            return new SignUp($app['orm.em']->getRepository('Performance\Domain\Author'));
+            return new SignUp($app['orm.em']->getRepository('Performance\Domain\Author'), $app['dispatcher'], $app['imageAwsS3']);
         };
 
         $app['useCases.login'] = function () use ($app) {

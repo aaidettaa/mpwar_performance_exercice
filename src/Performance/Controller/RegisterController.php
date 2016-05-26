@@ -59,8 +59,16 @@ class RegisterController
     {
         $username = $request->request->get('username');
         $password = $request->request->get('password');
+        $uploadedFile = $request->files->get('imageInputFile');
 
-        $this->useCase->execute($username, $password);
+        if(!is_null($uploadedFile) && $uploadedFile->getClientMimeType() != image_type_to_mime_type(IMAGETYPE_JPEG)){
+            return new Response($this->template->render('register.twig', [
+                'logged' => false,
+                'page' => 'register',
+            ]));
+        }
+
+        $this->useCase->execute($username, $password,  $uploadedFile);
 
         return new RedirectResponse($this->url_generator->generate('login'));
     }
