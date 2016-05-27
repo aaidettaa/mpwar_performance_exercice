@@ -2,6 +2,7 @@
 
 namespace Performance\Domain\UseCase;
 
+use Doctrine\Common\Persistence\Event\LoadClassMetadataEventArgs;
 use Performance\Domain\Author;
 use Performance\Domain\AuthorRepository;
 use Performance\Domain\Event\FileEvent;
@@ -29,7 +30,7 @@ class SignUp
         $this->filesystem       = $filesystem;
     }
 
-    public function execute($username, $password, UploadedFile $uploadedFile)
+    public function execute($username, $password,UploadedFile $uploadedFile)
     {
         $author = Author::register($username, $password);
         $this->authorRepository->save($author);

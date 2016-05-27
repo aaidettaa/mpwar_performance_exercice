@@ -29,7 +29,8 @@ class ImageAwsS3ServiceProvider implements ServiceProviderInterface
 
             $aws3adapter = new AwsS3Adapter($client, $options['bucketName'], $options['prefix']);
 
-            $filesystem = new Filesystem($aws3adapter, new Config([]));
+
+            $filesystem = new Filesystem($aws3adapter);
 
             return $filesystem;
         };
