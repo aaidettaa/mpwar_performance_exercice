@@ -1,12 +1,26 @@
 ---
 
-- name: "Install PHP5 and Apache2"
-  apt:
-    name: php5
-    state: present
-    update_cache: yes
-  become: yes
-  become_user: root
+#- name: "Install PHP5 and Apache2"
+#  apt:
+#    name: php5
+#    state: present
+#    update_cache: yes
+#  become: yes
+#  become_user: root
+
+- name: "install packages"
+  apt: name={{ item }} update_cache=yes state=latest
+  with_items:
+    - git
+    - php5
+    - php5-mysql
+    - python-mysqldb
+    - php5-redis
+
+- name: "install composer"
+  shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+  args:
+    creates: /usr/local/bin/composer
 
 - name: "Ubuntu user is the owner of /var/www/html"
   file:

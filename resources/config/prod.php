@@ -8,10 +8,10 @@ $app['twig.options'] = [];
 $app['db.options'] = [
     "driver"    => "pdo_mysql",
     "host"      => 'localhost',
-    "user"      => 'your-user',
-    "password"  => 'your-password',
+    "port"      => '3306',
     "dbname"    => 'mpwar_performance_blog',
-    "charset"   => "utf8"
+    "user"      => '--',
+    "password"  => '--'
 ];
 
 $app['redis.options'] = [
@@ -27,8 +27,8 @@ $app['imageAwsS3.options'] = [
     'secret'     => 'your-secret',
     'region'  => 'eu-west-1',
     'version'   => 'latest',
-    'bucketName' => 'your-bucket-name',
-    'prefix' => 'optional-prefix'
+    'bucketName' => '--',
+    'prefix' => '--'
 ];
 
 $app['orm.proxies_dir'] = '/tmp/proxies';
@@ -42,3 +42,5 @@ $app['orm.em.options'] = [
         ],
     ]
 ];
+
+$app['session.storage.save_path'] = "tcp://localhost:6379";
